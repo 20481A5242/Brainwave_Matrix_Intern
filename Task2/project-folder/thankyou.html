@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thank You</title>
+  <link rel="stylesheet" href="thankyou.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="thankyou-container">
+    <h1>🎉 Thank You for Your Order!</h1>
+    <p>Your order has been placed successfully.</p>
+    <h2>Order ID: <span id="order-id"></span></h2>
+    <p>📅 Order Date: <span id="order-date"></span></p>
+    <p>🚚 Estimated Delivery: <span id="delivery-date"></span></p>
+
+    <a href="index.html" class="shop-btn">Continue Shopping</a>
+    <button id="download-btn" class="print-btn">🧾 Download Receipt</button>
+  </div>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    const orderId = localStorage.getItem("lastOrderId") || "N/A";
+    const customer = JSON.parse(localStorage.getItem("lastCustomerDetails")) || {};
+    const cart = JSON.parse(localStorage.getItem("lastOrderCart")) || [];
+
+    const now = new Date();
+    const delivery = new Date();
+    delivery.setDate(now.getDate() + 5);
+
+    document.getElementById("order-id").textContent = orderId;
+    document.getElementById("order-date").textContent = now.toDateString();
+    document.getElementById("delivery-date").textContent = delivery.toDateString();
+
+    localStorage.removeItem("lastOrderCart");
+
+    function formatPayment(method) {
+      if (method === "credit") return "Credit Card";
+      if (method === "gpay") return "Google Pay";
+      if (method === "phonepe") return "PhonePe";
+      if (method === "cash") return "Cash on Delivery";
+      return "N/A";
+    }
+
+    document.getElementById("payment-method").textContent = formatPayment(customer.payment);
+
+    function calculateTotal(cartItems) {
+      return cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+    }
+
+    document.getElementById("download-btn").addEventListener("click", () => {
+      const doc = new jsPDF();
+
+      doc.setFontSize(16);
+      doc.text("Order Receipt", 80, 20);
+
+      doc.setFontSize(12);
+      doc.text(`Order ID: ${orderId}`, 15, 30);
+      doc.text(`Order Date: ${now.toDateString()}`, 15, 40);
+      doc.text(`Delivery Date: ${delivery.toDateString()}`, 15, 50);
+      doc.text(`Name: ${customer.name || "N/A"}`, 15, 60);
+      doc.text(`Address: ${customer.address || "N/A"}`, 15, 70);
+      doc.text(`Payment Method: ${formatPayment(customer.payment)}`, 15, 80);
+
+      let y = 95;
+      doc.text("Items:", 15, y);
+      y += 10;
+
+      cart.forEach((item, i) => {
+        doc.text(`${i + 1}. ${item.name} - ₹${item.price}`, 20, y);
+        y += 10;
+      });
+
+      const total = calculateTotal(cart);
+      doc.setFontSize(13);
+      doc.text(`Total Amount: ₹${total}`, 15, y + 10);
+
+      doc.setFontSize(11);
+      doc.text("Thank you for shopping with us!", 60, y + 30);
+      doc.save("Order_Receipt.pdf");
+    });
+  </script>
+</body>
+</html>

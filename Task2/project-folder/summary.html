@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment</title>
+  <link rel="stylesheet" href="summary.css" />
+  <script src="summary.js" defer></script>
+</head>
+<body>
+  <h1>Payment</h1>
+  <div id="order-items" class="order-items">
+  </div>
+
+  <div class="order-form">
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="text" id="address" placeholder="Delivery Address" required />
+
+    <div class="total-amount">
+      <h3>Total Amount: ₹<span id="total-amount">0.00</span></h3>
+    </div>
+
+    <select id="payment" onchange="togglePaymentDetails()" required>
+      <option value="" disabled selected>Select Payment Method</option>
+      <option value="credit">Credit Card</option>
+      <option value="gpay">Google Pay</option>
+      <option value="phonepe">PhonePe</option>
+      <option value="cod">Cash on Delivery</option>
+    </select>
+
+    <div id="credit-details" class="payment-section" style="display: none;">
+      <input type="text" id="card-number" placeholder="Card Number (16 digits)" maxlength="16" />
+      <input type="text" id="expiry" placeholder="MM/YY" />
+      <input type="text" id="cvv" placeholder="CVV (3 digits)" maxlength="3" />
+    </div>
+
+    <div id="gpay-details" class="payment-section" style="display: none;">
+      <input type="text" id="gpay-number" placeholder="Google Pay Number (10 digits)" maxlength="10" />
+    </div>
+
+    <div id="phonepe-details" class="payment-section" style="display: none;">
+      <input type="text" id="phonepe-number" placeholder="PhonePe Number (10 digits)" maxlength="10" />
+    </div>
+
+    <button onclick="placeOrder()">Confirm Order</button>
+  </div>
+</body>
+</html>

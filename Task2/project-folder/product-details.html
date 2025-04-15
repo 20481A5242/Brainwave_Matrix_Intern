@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="product-details.css" />
+</head>
+<body>
+  <main class="details-container">
+    <div class="product-image">
+      <img id="product-image" src="" alt="Product Image">
+    </div>
+    <div class="product-info">
+      <h2 id="product-name"></h2>
+      <p id="product-price" class="price"></p>
+      <p id="product-rating" class="rating"></p>
+      <ul id="product-features"></ul>
+      <button onclick="addToCartFromDetails()">Add to Cart</button>
+      <button onclick="goToCart()">Go to Cart</button>
+    </div>
+  </main>
+
+  <section class="related-products">
+    <h3>Related Products</h3>
+    <div class="related-list">
+  
+      <a class="related-item" href="product-details.html?name=Earbuds&price=₹1299&rating=4.4&image=https://static.toiimg.com/thumb/resizemode-4,msid-103940029,width-1070/103940029.jpg">
+        <img src="https://static.toiimg.com/thumb/resizemode-4,msid-103940029,width-1070/103940029.jpg" alt="Earbuds" />
+        <p>Wireless Earbuds</p>
+      </a>
+  
+      <a class="related-item" href="product-details.html?name=Smartphone&price=₹14999&rating=4.6&image=https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg">
+        <img src="https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg" alt="Smartphone" />
+        <p>Smartphone</p>
+      </a>
+  
+      <a class="related-item" href="product-details.html?name=Smartwatch&price=₹3999&rating=4.3&image=https://m-cdn.phonearena.com/images/offerlinks/41130-350/Amazfit-Active.jpg">
+        <img src="https://m-cdn.phonearena.com/images/offerlinks/41130-350/Amazfit-Active.jpg" alt="Smartwatch" />
+        <p>Smartwatch</p>
+      </a>
+  
+      <a class="related-item" href="product-details.html?name=Laptop&price=₹52999&rating=4.5&image=https://cdn.pixabay.com/photo/2014/04/02/10/13/notebook-303161_960_720.png">
+        <img src="https://cdn.pixabay.com/photo/2014/04/02/10/13/notebook-303161_960_720.png" alt="Laptop" />
+        <p>Laptop</p>
+      </a>
+  
+    </div>
+  </section>
+
+
+  <script src="product-details.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const price = params.get("price");
+    const rating = params.get("rating");
+    const image = params.get("image");
+
+    document.getElementById("product-name").textContent = name;
+    document.getElementById("product-price").textContent = price;
+    document.getElementById("product-rating").textContent = "⭐".repeat(Math.round(rating));
+    document.getElementById("product-image").src = image;
+
+    const productFeatures = {
+      "smartphone": [
+        "128GB Internal Storage",
+        "8GB RAM",
+        "MediaTek Dimensity Processor",
+        "Side-Mounted Fingerprint Sensor",
+        "Fast Charging Support (33W)",
+        "Android 13 OS"
+      ],
+      "laptop": [
+        "15.6-inch FHD Display",
+        "Intel i5 11th Gen",
+        "8GB RAM, 512GB SSD",
+        "Windows 11"
+      ],
+      "earbuds": [
+        "Noise Cancellation",
+        "20 Hours Battery Life",
+        "Touch Controls",
+        "Bluetooth 5.3"
+      ],
+      "wired earphones": [
+        "High Bass Sound Output",
+        "3.5mm Audio Jack",
+        "In-line Microphone with Call Button",
+        "Tangle-Free Cable Design",
+        "Comfortable Silicone Ear Tips"
+      ],
+      "smartwatch": [
+        "AMOLED Display",
+        "Heart Rate Monitor",
+        "100+ Sports Modes",
+        "Water Resistant"
+      ]
+    };
+
+    const featuresList = document.getElementById("product-features");
+    const features = productFeatures[name?.toLowerCase()] || ["No details available"];
+    featuresList.innerHTML = "";
+    features.forEach(feature => {
+      const li = document.createElement("li");
+      li.textContent = feature;
+      featuresList.appendChild(li);
+    });
+
+    function addToCartFromDetails() {
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (!cart) {
+        cart = [];
+      }
+
+      const product = {
+        name,
+        price: parseInt(price.replace(/[^\d]/g, "")),
+        image
+      };
+
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      updateCartCount(); 
+      updateCartDropdown(); 
+      alert("Added to cart!");
+    }
+
+    function goToCart() {
+      window.location.href = "order.html"; 
+    }
+
+    const relatedProductsData = {
+      "smartphone": [
+        { name: "Earbuds", price: "₹1,499", image: "images/earbuds.jpg" },
+        { name: "Smartwatch", price: "₹2,999", image: "images/smartwatch.jpg" }
+      ],
+      "laptop": [
+        { name: "Wired Earphones", price: "₹499", image: "images/wired-earphones.jpg" },
+        { name: "Mouse", price: "₹799", image: "images/mouse.jpg" }
+      ],
+      "earbuds": [
+        { name: "Smartwatch", price: "₹2,999", image: "images/smartwatch.jpg" },
+        { name: "Wired Earphones", price: "₹499", image: "images/wired-earphones.jpg" }
+      ],
+      "smartwatch": [
+        { name: "Earbuds", price: "₹1,499", image: "images/earbuds.jpg" },
+        { name: "Smartphone", price: "₹12,499", image: "images/smartphone.jpg" }
+      ]
+    };
+
+    const relatedContainer = document.getElementById("related-products-container");
+    const relatedItems = relatedProductsData[name?.toLowerCase()] || [];
+
+    relatedItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "related-item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <p>${item.name}</p>
+        <p class="price">${item.price}</p>
+      `;
+      relatedContainer.appendChild(div);
+    });
+  </script>
+</body>
+</html>

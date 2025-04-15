@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signup - Gadget Store</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h2>Sign Up</h2>
+    <form onsubmit="return handleSignup(event)">
+      <input type="text" id="new-username" placeholder="New Username" required /><br />
+      <input type="password" id="new-password" placeholder="New Password" required /><br />
+      <button type="submit">Create Account</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+  <script>
+    function handleSignup(event) {
+      event.preventDefault();
+      const newUsername = document.getElementById('new-username').value;
+      const newPassword = document.getElementById('new-password').value;
+
+      localStorage.setItem(newUsername, newPassword);
+      alert('Account created! Please login.');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

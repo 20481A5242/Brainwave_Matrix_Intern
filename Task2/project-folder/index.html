@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartX Store</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <header>
+    <h1>SmartX Store</h1>
+    <div id="cart-icon">
+      🛒 Cart (<span id="cart-count">0</span>)
+      <div id="cart-dropdown" class="cart-dropdown">
+        <ul id="cart-items"></ul>
+        <div class="cart-actions">
+          <button onclick="goToOrderPage()">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <button onclick="filterProducts('all')">All</button>
+    <button onclick="filterProducts('phone')">Phones</button>
+    <button onclick="filterProducts('laptop')">Laptops</button>
+    <button onclick="filterProducts('watch')">Watches</button>
+    <button onclick="filterProducts('earbuds')">Earbuds</button>
+  </nav>
+  
+  <main id="product-container">
+    <div class="product-card" data-category="watch">
+      <img src="https://m.media-amazon.com/images/I/716Jq5LJKsL._AC_SL1500_.jpg" alt="Smartwatch"/>
+      <h3>Smartwatch</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ☆</p>
+      <p>₹4,999</p>
+      <button onclick="viewDetails('Smartwatch', '₹4,999', '4', 'https://m.media-amazon.com/images/I/716Jq5LJKsL._AC_SL1500_.jpg')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="phone">
+      <img src="https://tse4.mm.bing.net/th?id=OIP.F_AfKCUraApsytrjc4CVcgHaGz&pid=Api&P=0&h=180" alt="Smartphone"/>
+      <h3>Smartphone</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ☆</p>
+      <p>₹49,999</p>
+      <button onclick="viewDetails('Smartphone', '₹49,999', '4', 'https://tse4.mm.bing.net/th?id=OIP.F_AfKCUraApsytrjc4CVcgHaGz&pid=Api&P=0&h=180')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="earbuds">
+      <img src="https://m.media-amazon.com/images/I/71-TQ1oSm+L._AC_SL1500_.jpg" alt="Wireless Earbuds"/>
+      <h3>Earbuds</h3>
+      <p class="rating">⭐ ⭐ ⭐ ☆ ☆</p>
+      <p>₹3,999</p>
+      <button onclick="viewDetails('Earbuds', '₹3,999', '3', 'https://m.media-amazon.com/images/I/71-TQ1oSm+L._AC_SL1500_.jpg')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="laptop">
+      <img src="https://cdn.pixabay.com/photo/2014/04/02/10/13/notebook-303161_960_720.png" alt="Laptop"/>
+      <h3>Laptop</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐</p>
+      <p>₹45,999</p>
+      <button onclick="viewDetails('Laptop', '₹45,999', '5', 'https://cdn.pixabay.com/photo/2014/04/02/10/13/notebook-303161_960_720.png')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="watch">
+      <img src="https://m-cdn.phonearena.com/images/offerlinks/41130-350/Amazfit-Active.jpg" alt="Smartwatch"/>
+      <h3>Smartwatch</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ☆</p>
+      <p>₹7,999</p>
+      <button onclick="viewDetails('smartwatch', '₹7,999', '4', 'https://m-cdn.phonearena.com/images/offerlinks/41130-350/Amazfit-Active.jpg')">View Details</button>
+    </div>
+ 
+    <div class="product-card" data-category="earbuds">
+      <img src="https://static.toiimg.com/thumb/resizemode-4,msid-103940029,width-1070/103940029.jpg" alt="Wireless Earbuds"/>
+      <h3>Earbuds</h3>
+      <p class="rating">⭐ ⭐ ⭐ ☆ ☆</p>
+      <p>₹2,999</p>
+      <button onclick="viewDetails('earbuds', '₹2,999', '3', 'https://static.toiimg.com/thumb/resizemode-4,msid-103940029,width-1070/103940029.jpg')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="phone">
+      <img src="https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg" alt="Smartphone"/>
+      <h3>Smartphone</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ☆</p>
+      <p>₹15,999</p>
+      <button onclick="viewDetails('smartphone', '₹15,999', '4', 'https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg')">View Details</button>
+    </div>    
+
+    <div class="product-card" data-category="laptop">
+      <img src="https://brain-images-ssl.cdn.dixons.com/2/0/10169902/u_10169902.jpg" alt="Laptop"/>
+      <h3>Laptop</h3>
+      <p class="rating">⭐ ⭐ ⭐ ⭐ ⭐</p>
+      <p>₹55,999</p>
+      <button onclick="viewDetails('laptop', '₹55,999', '5', 'https://brain-images-ssl.cdn.dixons.com/2/0/10169902/u_10169902.jpg')">View Details</button>
+    </div>
+
+    <div class="product-card" data-category="earbuds">
+      <img src="https://www.headphonezone.in/cdn/shop/files/Headphone-Zone-CCA-CST-gold-01.jpg?v=1736490315&width=1160" alt="Wireless Earbuds"/>
+      <h3>Wired Earphones</h3>
+      <p class="rating">⭐ ⭐ ⭐ ☆ ☆</p>
+      <p>₹1,999</p>
+      <button onclick="viewDetails('Wired Earphones', '₹1,999', '3', 'https://www.headphonezone.in/cdn/shop/files/Headphone-Zone-CCA-CST-gold-01.jpg?v=1736490315&width=1160')">View Details</button>
+    </div>
+  </main>
+</body>
+</html>

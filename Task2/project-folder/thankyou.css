@@ -1,0 +1,57 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    background-image: url('https://plus.unsplash.com/premium_photo-1728224403721-a4affa8e30ff?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .thankyou-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h1 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  p {
+    color: #555;
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .shop-btn,
+  .print-btn {
+    display: inline-block;
+    margin: 20px 10px 0;
+    padding: 12px 24px;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .shop-btn {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .print-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
